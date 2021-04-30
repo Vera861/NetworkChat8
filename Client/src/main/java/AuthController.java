@@ -23,8 +23,6 @@ public class AuthController {
         Socket socket = ServerConnection.getSocket();
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-        //TODO Callable следующая ступень развития Runnable. Позволяет вернуть результаты вычислений, а так-же пробросить ошибку, в случае возникновения.
-        // Запускается с помощью ThreadPoolExecutor, а не через создание новой Thread
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -34,13 +32,11 @@ public class AuthController {
                         //   /authok nick1
                         if (strFromServer.startsWith("/authok")) {
                             Config.nick = strFromServer.split(" ")[1];
-                            //TODO работу с объектами fx запускаем через эту конструкцию
                             Platform.runLater(() -> {
                                 Stage stage = (Stage) loginTF.getScene().getWindow();
                                 stage.close();
                             });
                             break;
-
                         }
                     }
                 } catch (Exception e) {
