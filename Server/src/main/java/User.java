@@ -1,5 +1,3 @@
-package ru.geekbrains.Server;
-
 public class User {
     private final String login;
     private String password;

@@ -1,9 +1,6 @@
-package ru.geekbrains.Server;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,21 +25,10 @@ public class MyServer {
                 System.out.println("Ждем подключения клиента");
                 Socket socket = server.accept();
                 System.out.println("Клиент подключился");
-                socket.setSoTimeout(120000);
-                while (true) {
-                    new ClientHandler(socket);
-                }
+                new ClientHandler(socket);
             }
         } catch (IOException e) {
-            try {
-                if (e instanceof SocketTimeoutException) {
-                    throw new SocketTimeoutException();
-                } else {
-                    e.printStackTrace();
-                }
-            } catch (SocketTimeoutException ste) {
-                System.out.println("Время для авторизации истекло");
-            }
+            e.printStackTrace();
         } finally {
             if (authService != null) {
                 authService.stop();
