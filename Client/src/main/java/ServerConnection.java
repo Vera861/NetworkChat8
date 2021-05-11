@@ -12,5 +12,4 @@ public class ServerConnection {
         }
         return socket;
     }
-
 }

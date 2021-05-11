@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,6 @@ public class MyServer {
             }
         } catch (IOException e) {
             e.printStackTrace();
-
         } finally {
             if (authService != null) {
                 authService.stop();

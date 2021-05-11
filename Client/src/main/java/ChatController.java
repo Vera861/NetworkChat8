@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class ChatController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка подключения");
             alert.setHeaderText("Сервер не работает");
-            alert.setContentText("Не забудь включить сервер!");
+            alert.setContentText("Необходимо включить сервер!");
             alert.showAndWait();
             e.printStackTrace();
             throw e;
@@ -48,7 +47,7 @@ public class ChatController {
         Stage loginStage = new Stage();
         loginStage.initModality(Modality.APPLICATION_MODAL);
         loginStage.setScene(new Scene(root));
-        loginStage.setTitle("Вход");
+        loginStage.setTitle("Авторизация");
         loginStage.showAndWait();
     }
 

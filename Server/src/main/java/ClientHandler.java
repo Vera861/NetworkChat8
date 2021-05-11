@@ -28,7 +28,6 @@ public class ClientHandler {
                     closeConnection();
                 }
             }).start();
-
         } catch (IOException e) {
             System.out.println("Проблемы при создании обработчика клиента");
             e.printStackTrace();
@@ -82,7 +81,6 @@ public class ClientHandler {
     public void readMsg() throws IOException {
         while (socket.isConnected()) {
             String strFromClient = in.readUTF();
-
             if (lastMsgTime != null && System.currentTimeMillis() - lastMsgTime < 10000) {
                 server.sendMsgToClient(this, getName(), "Незарегистрированным пользователям нельзя отправлять сообщение чаще, чем раз в 10 секунд");
                 continue;
@@ -126,6 +124,7 @@ public class ClientHandler {
     }
 
     public String getName() {
+
         return name;
     }
 }
