@@ -40,6 +40,21 @@ public class BaseAuthService implements AuthService {
     }
 
     @Override
+    public void chageNickByLoginPass(String loginEnter, String password) {
+        try {
+            PreparedStatement userResSet = postgresConnection.prepareStatement("UPDATE nick FROM Users where login = ? and pass = ?");
+            String login = loginEnter;
+            String pass = password;
+            userResSet.setString(1,loginEnter);
+            userResSet.setString(2,password);
+            ResultSet nickResSet = userResSet.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
     public void stop() {
 
         System.out.println("Сервис остановился");
