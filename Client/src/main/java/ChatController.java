@@ -9,8 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -66,6 +68,7 @@ public class ChatController {
                         System.out.println("Конец цикла");
                         break;
                     }
+                    createLog(Config.nick);
                     chatArea.appendText(strFromServer + "\n");
                 }
             } catch (Exception e) {
@@ -122,4 +125,11 @@ public class ChatController {
             }
         }
     }
-}
+    private void createLog(String login) throws IOException {
+        File fileLog = new File (login + ".txt");
+        if (!fileLog.exists()) {
+            fileLog.createNewFile();
+
+        }
+        }
+    }
