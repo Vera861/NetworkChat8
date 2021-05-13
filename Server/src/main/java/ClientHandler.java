@@ -34,6 +34,12 @@ public class ClientHandler {
         }
     }
 
+    private String getLogin() throws IOException{
+        String str = in.readUTF();
+        String[] parts = str.split(" ");
+        return parts[1];
+    }
+
     private void auth() throws IOException {
         while (true) {
             String str = in.readUTF();
@@ -90,6 +96,11 @@ public class ClientHandler {
             if (strFromClient.startsWith("/")) {
                 if (strFromClient.equals("/end")) {
                     return;
+                }
+                if (strFromClient.equals("/chnick ")) {
+                    String[] parts = strFromClient.split(" ");
+                    String nick = parts[1];
+                    name = server.getAuthService().changNick(getLogin(),nick);
                 }
                 if (strFromClient.startsWith("/w ")) {
                     String[] parts = strFromClient.split(" ");

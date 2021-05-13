@@ -19,16 +19,14 @@ public class BaseAuthService implements AuthService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
- }
+    }
 
     @Override
     public String getNickByLoginPass(String loginEnter, String password) {
         try {
             PreparedStatement userResSet = postgresConnection.prepareStatement("SELECT * FROM Users where login = ? and pass = ?");
-            String login = loginEnter;
-            String pass = password;
-            userResSet.setString(1,loginEnter);
-            userResSet.setString(2,password);
+            userResSet.setString(1, loginEnter);
+            userResSet.setString(2, password);
             ResultSet nickResSet = userResSet.executeQuery();
             while (nickResSet.next()) {
                 return nickResSet.getString("nick");
@@ -40,17 +38,19 @@ public class BaseAuthService implements AuthService {
     }
 
     @Override
-    public void chageNickByLoginPass(String loginEnter, String password) {
+    public String changNick(String login, String nick) {
         try {
-            PreparedStatement userResSet = postgresConnection.prepareStatement("UPDATE nick FROM Users where login = ? and pass = ?");
-            String login = loginEnter;
-            String pass = password;
-            userResSet.setString(1,loginEnter);
-            userResSet.setString(2,password);
+            PreparedStatement userResSet = postgresConnection.prepareStatement("UPDATE Users SET nick=? where login = ?");
+            userResSet.setString(1, nick);
+            userResSet.setString(2, login);
             ResultSet nickResSet = userResSet.executeQuery();
+            while (nickResSet.next()) {
+                return nickResSet.getString("nick");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
