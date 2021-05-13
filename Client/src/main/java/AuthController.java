@@ -1,9 +1,11 @@
 import com.sun.istack.internal.NotNull;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -46,7 +48,15 @@ public class AuthController {
 
     @FXML
     private void auth() throws IOException {
-        String authString = "/auth " + loginTF.getText() + " " + passwordTF.getText();
-        out.writeUTF(authString);
+        if (passwordTF.getText() != null && !passwordTF.getText().trim().isEmpty()) {
+            String authString = "/auth " + loginTF.getText() + " " + passwordTF.getText();
+            out.writeUTF(authString);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Password cannot be empty");
+            alert.setHeaderText(null);
+            alert.setContentText("Введите пароль!");
+            alert.showAndWait();
+        }
     }
 }

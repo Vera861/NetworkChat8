@@ -20,7 +20,7 @@ public class ClientHandler {
             this.out = new DataOutputStream(socket.getOutputStream());
             new Thread(() -> {
                 try {
-                    auth();
+                     auth();
                     readMsg();
                 } catch (IOException e) {
                     e.printStackTrace();

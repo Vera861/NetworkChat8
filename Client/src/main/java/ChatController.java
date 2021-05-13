@@ -10,10 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ChatController {
@@ -57,7 +54,10 @@ public class ChatController {
         socket = ServerConnection.getSocket();
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-
+        File fileLog = new File("history_" + Config.nick + ".txt");
+        if (!fileLog.exists()) {
+            fileLog.createNewFile();
+        }
         new Thread(() -> {
             try {
                 while (socket.isConnected()) {
@@ -68,8 +68,9 @@ public class ChatController {
                         System.out.println("Конец цикла");
                         break;
                     }
-                    createLog(Config.nick);
                     chatArea.appendText(strFromServer + "\n");
+                    DataOutputStream writer = new DataOutputStream(new FileOutputStream(fileLog, true));
+                    writer.writeUTF(strFromServer);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +108,6 @@ public class ChatController {
         }
     }
 
-
     @FXML
     private void sendMsg() {
         if (!inputField.getText().trim().isEmpty()) {
@@ -125,11 +125,13 @@ public class ChatController {
             }
         }
     }
-    private void createLog(String login) throws IOException {
-        File fileLog = new File (login + ".txt");
-        if (!fileLog.exists()) {
-            fileLog.createNewFile();
-
-        }
-        }
-    }
+//    private void createLog(String login, String strLog) throws IOException {
+//        File fileLog = new File ("history_"+login + ".txt");
+//        if (!fileLog.exists()) {
+//            fileLog.createNewFile();}
+//        else {
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileLog, true);
+//            fileOutputStream.write(strLog);
+//
+//        }
+}

@@ -25,8 +25,6 @@ public class BaseAuthService implements AuthService {
     public String getNickByLoginPass(String loginEnter, String password) {
         try {
             PreparedStatement userResSet = postgresConnection.prepareStatement("SELECT * FROM Users where login = ? and pass = ?");
-            String login = loginEnter;
-            String pass = password;
             userResSet.setString(1,loginEnter);
             userResSet.setString(2,password);
             ResultSet nickResSet = userResSet.executeQuery();
