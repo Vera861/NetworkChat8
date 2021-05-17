@@ -54,10 +54,6 @@ public class ChatController {
         socket = ServerConnection.getSocket();
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-        File fileLog = new File("history_" + Config.nick + ".txt");
-        if (!fileLog.exists()) {
-            fileLog.createNewFile();
-        }
         new Thread(() -> {
             try {
                 while (socket.isConnected()) {
@@ -69,6 +65,7 @@ public class ChatController {
                         break;
                     }
                     chatArea.appendText(strFromServer + "\n");
+
                     DataOutputStream writer = new DataOutputStream(new FileOutputStream(fileLog, true));
                     writer.writeUTF(strFromServer);
                 }
@@ -125,13 +122,5 @@ public class ChatController {
             }
         }
     }
-//    private void createLog(String login, String strLog) throws IOException {
-//        File fileLog = new File ("history_"+login + ".txt");
-//        if (!fileLog.exists()) {
-//            fileLog.createNewFile();}
-//        else {
-//            FileOutputStream fileOutputStream = new FileOutputStream(fileLog, true);
-//            fileOutputStream.write(strLog);
-//
-//        }
+
 }
