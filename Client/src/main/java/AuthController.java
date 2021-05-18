@@ -32,10 +32,6 @@ public class AuthController {
                     while (true) {
                         String strFromServer = in.readUTF();
                         if (strFromServer.startsWith("/authok")) {
-                            File fileLog = new File("history_" + loginTF.getText() + ".txt");
-                            if (!fileLog.exists()) {
-                                fileLog.createNewFile();
-                            }
                             Config.nick = strFromServer.split(" ")[1];
                             Platform.runLater(() -> {
                                 Stage stage = (Stage) loginTF.getScene().getWindow();

@@ -64,10 +64,9 @@ public class ChatController {
                         System.out.println("Конец цикла");
                         break;
                     }
+                    HistoryController fileLog = new HistoryController(login);
                     chatArea.appendText(strFromServer + "\n");
-
-                    DataOutputStream writer = new DataOutputStream(new FileOutputStream(fileLog, true));
-                    writer.writeUTF(strFromServer);
+                    fileLog.saveMsg(strFromServer + "\n");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
