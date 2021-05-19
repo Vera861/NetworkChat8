@@ -4,4 +4,6 @@ HistoryController fileLog = new HistoryController(login);
 chatArea.appendText(strFromServer + "\n");
 fileLog.saveMsg(strFromServer + "\n");
 
-не могу понять, как получить значение Login в данном классе((
+Не могу понять, как получить значение Login в данном классе((
+
+Со вторым заданием разобраться не получилось
